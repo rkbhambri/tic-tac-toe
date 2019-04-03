@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import GameType from '../../components/GameType/GameType';
 import PlayerName from '../../components/PlayerName/PlayerName';
 import GameBoard from '../../components/GameBoard/GameBoard';
+import GameResult from '../../components/GameResult/GameResult';
 
 class Layout extends Component {
 
@@ -26,6 +27,8 @@ class Layout extends Component {
 		gameType: null,
 		isPlayerAdded: false,
 		isGameOver: false,
+		isGameTied: null,
+		winner: null,
 		box: [
 			{ value: '', index: 0 }, { value: '', index: 1 }, { value: '', index: 2 },
 			{ value: '', index: 3 }, { value: '', index: 4 }, { value: '', index: 5 },
@@ -35,7 +38,7 @@ class Layout extends Component {
 
 	componentDidUpdate() {
 		if (this.state.gameType === 'single' && !this.state.isGameOver) {
-			console.log('---componentDidUpdate------state---', !this.state.isUserTurn && this.state.flag)
+			// console.log('---componentDidUpdate------state---', !this.state.isUserTurn && this.state.flag)
 
 			if (!this.state.isUserTurn && this.state.flag) {
 				const player = JSON.parse(JSON.stringify(this.state.player));
@@ -118,9 +121,11 @@ class Layout extends Component {
 	setValue = (event, moves) => {
 		const player = JSON.parse(JSON.stringify(this.state.player));
 		const box = JSON.parse(JSON.stringify(this.state.box));
+		let winner = this.state.winner;
+		let isGameTied = this.state.isGameTied;
 		player[event.target.id].moves.push(moves);
 		box[moves].value = player[event.target.id].value;
-		console.log('----user----', moves)
+
 		let checkWinner = (
 			(
 				player[event.target.id].moves.includes(0) &&
@@ -141,10 +146,12 @@ class Layout extends Component {
 		let checkDraw = box.filter(item => item.value === '');
 
 		if (checkDraw.length === 0 && !checkWinner) {
-			alert(' Its a Tie !!');
+			isGameTied = true;
+			// alert(' Its a Tie !!');
 		}
 		if (checkWinner) {
-			alert(player[event.target.id].name + ' is the winner !!');
+			winner = player[event.target.id].name
+			// alert(player[event.target.id].name + ' is the winner !!');
 		}
 
 		this.setState({
@@ -153,7 +160,9 @@ class Layout extends Component {
 			isPlayer1Active: !this.state.isPlayer1Active,
 			isUserTurn: !this.state.isUserTurn,
 			flag: true,
-			isGameOver: checkWinner
+			isGameOver: checkWinner,
+			winner,
+			isGameTied
 		});
 	};
 
@@ -173,9 +182,12 @@ class Layout extends Component {
 				}
 			},
 			isPlayer1Active: true,
+			isUserTurn: true,
+			flag: false,
 			isPlayer2Active: false,
 			gameType: null,
 			isPlayerAdded: false,
+			isGameOver: false,
 			box: [
 				{ value: '', index: 0 }, { value: '', index: 1 }, { value: '', index: 2 },
 				{ value: '', index: 3 }, { value: '', index: 4 }, { value: '', index: 5 },
@@ -196,12 +208,17 @@ class Layout extends Component {
 						addPlayer={this.addPlayer}
 						{...this.state} />
 				}
-				<GameBoard
-					box={this.state.box}
-					setValue={(event, moves) => this.setValue(event, moves)}
-					player={this.state.player}
-					isPlayer1Active={this.state.isPlayer1Active}
-					restart={this.restart} />
+				{
+					this.state.isGameTied !== null || this.state.winner !== null ?
+						<GameResult isGameTied={this.state.isGameTied} winner={this.state.winner} />
+						:
+						<GameBoard
+							box={this.state.box}
+							setValue={(event, moves) => this.setValue(event, moves)}
+							player={this.state.player}
+							isPlayer1Active={this.state.isPlayer1Active}
+							restart={this.restart} />
+				}
 			</div>
 		);
 	};

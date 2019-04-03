@@ -3,11 +3,11 @@ import React from 'react';
 const PlayerName = (props) => {
     return (
         <form
-            className="player row col-md-6 offset-3 mt-4"
+            className="player row col-md-8 offset-2 mt-4"
             onChange={(event) => props.nameChangeHandler(event)}>
             <input
                 type="text"
-                className="form-control col-md-8"
+                className="form-control col-md-4"
                 name="player1"
                 defaultValue={props.player.player1.name}
                 placeholder="Enter name"
@@ -16,7 +16,7 @@ const PlayerName = (props) => {
                 props.gameType === 'double' &&
                 <input
                     type="text"
-                    className="form-control col-md-8"
+                    className="form-control col-md-4 ml-2"
                     name="player2"
                     defaultValue={props.player.player2.name}
                     placeholder="Enter name"
