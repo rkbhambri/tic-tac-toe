@@ -18,6 +18,11 @@ const GameBoard = (props) => {
                     )
                 })
             }
+            <div className="restart-game w-100 text-center mt-4">
+                <button
+                    className="btn btn-lg w-100 btn-info"
+                    onClick={props.restart}>Restart Game</button>
+            </div>
         </div>
     );
 };
