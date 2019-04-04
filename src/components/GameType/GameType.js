@@ -5,7 +5,7 @@ const GameType = (props) => {
         <div className="select-game-type text-center mt-5 pt-3">
             <span className="single-player">
                 <button
-                    className="btn btn-sm btn-primary"
+                    className="btn btn-md btn-primary"
                     value="single"
                     onClick={(event) => props.selectGameType(event)}>
                     Single Player
@@ -13,7 +13,7 @@ const GameType = (props) => {
             </span>
             <span className="double-player ml-5">
                 <button
-                    className="btn btn-sm btn-primary"
+                    className="btn btn-md btn-primary"
                     value="double"
                     onClick={(event) => props.selectGameType(event)}>
                     Double Player

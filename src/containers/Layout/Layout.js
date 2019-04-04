@@ -162,7 +162,8 @@ class Layout extends Component {
 			flag: true,
 			isGameOver: checkWinner,
 			winner,
-			isGameTied
+			isGameTied,
+			gameType: winner || isGameTied ? null : this.state.gameType
 		});
 	};
 
@@ -188,6 +189,8 @@ class Layout extends Component {
 			gameType: null,
 			isPlayerAdded: false,
 			isGameOver: false,
+			isGameTied: null,
+			winner: null,
 			box: [
 				{ value: '', index: 0 }, { value: '', index: 1 }, { value: '', index: 2 },
 				{ value: '', index: 3 }, { value: '', index: 4 }, { value: '', index: 5 },
@@ -198,7 +201,7 @@ class Layout extends Component {
 
 	render() {
 		return (
-			<div className="layout col-md-5 offset-3 mt-5 border">
+			<div className="layout col-md-5 offset-3 mt-5">
 				<Header />
 				<GameType selectGameType={(event) => this.selectGameType(event)} />
 				{
@@ -219,6 +222,11 @@ class Layout extends Component {
 							isPlayer1Active={this.state.isPlayer1Active}
 							restart={this.restart} />
 				}
+				<div className="restart-game col-md-8 offset-2 mt-3">
+					<button
+						className="btn btn-lg w-100 btn-info"
+						onClick={this.restart}>Restart Game</button>
+				</div>
 			</div>
 		);
 	};

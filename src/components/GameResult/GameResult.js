@@ -3,10 +3,10 @@ import React from 'react';
 const GameResult = (props) => {
     let message = null;
     if (props.isGameTied !== null) {
-        message = <h3>Its a Tie !!</h3>
+        message = <h3 className="w-100">Its a Tie !!</h3>
     }
     if (props.winner !== null) {
-        message = <h3>{props.winner} has won !!</h3>
+        message = <h3 className="w-100">{props.winner} has won !!</h3>
     }
 
     return (
