@@ -2,7 +2,7 @@
   "name": "tic-tac-toe",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://rkbhambri.github.io/tic-tac-toe",
+  "homepage": "https://rkbhambri.github.io/tic-tac-toe/",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "gh-pages": "^2.0.1",
